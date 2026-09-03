@@ -103,10 +103,10 @@ ans2 = st.text_input(
 
 
 # อัปเดตค่าล่าสุดเข้าตัวแปร
-st.session_state.ans1_val = ans1
-st.session_state.ans2_val = ans2
-st.session_state.ans3_val = ans3
-st.session_state.ans4_val = ans4
+st.session_state.ans1_val == ans1
+st.session_state.ans2_val == ans2
+st.session_state.ans3_val == ans3
+st.session_state.ans4_val == ans4
 
 # ✏️ [พื้นที่สำหรับนักเรียน]: เพิ่มข้อ 3, 4 ตรงนี้
 
