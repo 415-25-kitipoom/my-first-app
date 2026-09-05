@@ -26,8 +26,9 @@ def reset_game():
 # ----------------------------------------------------
 # 📌 ฟังก์ชัน MessageBox (Dialog)
 # ----------------------------------------------------
+# [แก้ไขจุดที่ 1] เพิ่มพารามิเตอร์ ans3, ans4 ให้ครบ
 @st.dialog("📊 สรุปผลการเล่นเกม")
-def show_result_dialog(ans1, ans2):
+def show_result_dialog(ans1, ans2, ans3, ans4):
     st.balloons()
     score = 0
 
@@ -41,31 +42,28 @@ def show_result_dialog(ans1, ans2):
         st.success("✅ ข้อ 1: ถูกต้อง")
         score += 1
     else:
-       st.error(f"❌ ข้อ 1: ยังไม่ถูกต้อง (คุณตอบ '{u_ans1}')")
+        st.error(f"❌ ข้อ 1: ยังไม่ถูกต้อง (คุณตอบ '{u_ans1}')")
 
     # ตรวจข้อ 2
     if u_ans2 == "fish":
         st.success("✅ ข้อ 2: ถูกต้อง")
         score += 1
     else:
-       st.error(f"❌ ข้อ 2: ยังไม่ถูกต้อง (คุณตอบ '{u_ans2}')")
+        st.error(f"❌ ข้อ 2: ยังไม่ถูกต้อง (คุณตอบ '{u_ans2}')")
          
-    # ✏️ [พื้นที่สำหรับนักเรียน]: เพิ่มตรวจข้อ 3, 4 ตรงนี้
-    
     # ตรวจข้อ 3
     if u_ans3 == "banana":
         st.success("✅ ข้อ 3: ถูกต้อง")
         score += 1
     else:
-       st.error(f"❌ ข้อ 3: ยังไม่ถูกต้อง (คุณตอบ '{u_ans3}')")
+        st.error(f"❌ ข้อ 3: ยังไม่ถูกต้อง (คุณตอบ '{u_ans3}')")
 
     # ตรวจข้อ 4
     if u_ans4 == "lemon":
         st.success("✅ ข้อ 4: ถูกต้อง")
         score += 1
     else:
-       st.error(f"❌ ข้อ 4: ยังไม่ถูกต้อง (คุณตอบ '{u_ans4}')")
-
+        st.error(f"❌ ข้อ 4: ยังไม่ถูกต้อง (คุณตอบ '{u_ans4}')")
 
     st.info(f"🏆 ได้คะแนนรวม: {score} คะแนน")
 
@@ -92,7 +90,7 @@ if "start" in st.session_state and not st.session_state.get("is_ended", False):
 
 st.divider()
 
-# 3. ช่องรับคำตอบ (ใช้ value ผูกกับตัวแปรตรงๆ เพื่อสั่งเคลียร์ได้)
+# 3. ช่องรับคำตอบ (แก้ไขปิดวงเล็บให้ถูกต้อง)
 ans1 = st.text_input(
     "ข้อ 1: An `a _ _ l e` a day keeps the doctor away. 🍎",
     value=st.session_state.ans1_val,
@@ -100,24 +98,22 @@ ans1 = st.text_input(
 ans2 = st.text_input(
     "ข้อ 2: Cats love to eat `f _ s h`. 🐟",
     value=st.session_state.ans2_val,
-
-
-# อัปเดตค่าล่าสุดเข้าตัวแปร
-st.session_state.ans1_val = ans1
-st.session_state.ans2_val = ans2
-st.session_state.ans3_val = ans3
-st.session_state.ans4_val = ans4
-
-# ✏️ [พื้นที่สำหรับนักเรียน]: เพิ่มข้อ 3, 4 ตรงนี้
+) # [แก้ไขจุดที่ 4.1] ใส่ ) ปิดวงเล็บ
 
 ans3 = st.text_input(
     "ข้อ 3: monkey love to eat `b _ _ a n a`. 🍌",
     value=st.session_state.ans3_val,
 )  
- ans4 = st.text_input(
+ans4 = st.text_input(
     "ข้อ 4: i love to eat `l _ m o n`. 🍋",
     value=st.session_state.ans4_val,
+) # [แก้ไขจุดที่ 3 & 4.2] ลบช่องว่างส่วนเกินหน้า ans4 และใส่ ) ปิดวงเล็บ
 
+# [แก้ไขจุดที่ 2] ย้ายการอัปเดตค่าลงมาไว้ "หลังจาก" ประกาศสร้าง ans1-ans4 เรียบร้อยแล้ว
+st.session_state.ans1_val = ans1
+st.session_state.ans2_val = ans2
+st.session_state.ans3_val = ans3
+st.session_state.ans4_val = ans4
 
 # 4. ปุ่มส่งคำตอบ
 if "start" in st.session_state and not st.session_state.get("is_ended", False):
@@ -130,10 +126,7 @@ if "start" in st.session_state and not st.session_state.get("is_ended", False):
 
 # 5. แสดง Dialog ผลลัพธ์
 if st.session_state.get("is_ended", False):
-    show_result_dialog(ans1, ans2 , ans3 , ans4)
+    show_result_dialog(ans1, ans2, ans3, ans4)
 
 st.divider()
 st.write("นายกิติภูมิ วงค์สอน เลขที่ 25 ม.4/5")
-
-
-
